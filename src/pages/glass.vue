@@ -1,3 +1,32 @@
+<script setup>
+import { ref, onMounted } from "vue";
+const glassCard = ref();
+onMounted(() => {
+  const tl = gsap.timeline();
+
+  tl.from(glassCard.value, {
+    delay: 0.4,
+    duration: 1.2,
+    opacity: 0,
+
+    height: 0,
+    ease: "power3.inOut",
+  });
+  tl.from(
+    ".fade-in",
+    {
+      duration: 1,
+      opacity: 0,
+      y: 20,
+      stagger: {
+        each: 0.2,
+      },
+      ease: "power3.inOut",
+    },
+    "-=0.5"
+  );
+});
+</script>
 <template>
   <div
     class="w-screen h-screen flex justify-center items-center overflow-hidden"
@@ -5,16 +34,19 @@
     <div
       class="w-screen h-screen bg-[url('/triangle-pattern.png')] background absolute"
     ></div>
-    <div class="glass-card w-[460px] p-8 text-center shadow-2xl">
+    <div
+      ref="glassCard"
+      class="glass-card w-[460px] p-8 text-center shadow-2xl"
+    >
       <img
-        class="rounded-full w-32 h-32 object-cover mx-auto mb-8 shadow-xl"
+        class="rounded-full w-32 h-32 object-cover mx-auto mb-8 shadow-xl fade-in"
         src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=761&q=80"
         alt=""
       />
-      <p class="font-bold text-3xl text-gray-800">Mads Brodt</p>
-      <p class="mt-4 text-gray-700">Front-end Developer</p>
+      <p class="font-bold text-3xl text-gray-800 fade-in">Mads Brodt</p>
+      <p class="mt-4 text-gray-700 fade-in">Front-end Developer</p>
 
-      <div class="mt-8 flex gap-8 justify-center">
+      <div class="mt-8 flex gap-8 justify-center fade-in">
         <div>
           <p class="font-bold text-2xl text-gray-700">100</p>
           <p
@@ -40,7 +72,7 @@
           </p>
         </div>
       </div>
-      <div class="mt-8 flex gap-5 justify-center">
+      <div class="mt-8 flex gap-5 justify-center fade-in" id="some-icons">
         <button
           class="rounded-xl w-10 h-10 bg-gradient-to-tr from-blue-800 to-blue-600 flex justify-center items-center"
         >
@@ -93,22 +125,24 @@
         </button>
       </div>
       <div class="mt-8 flex gap-4 justify-between">
-        <button
-          class="rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-2 w-full hover:shadow-xl transition-all hover:-translate-y-1 duration-300 hover:shadow-blue-500"
-        >
-          Send message
-        </button>
-        <button
-          class="rounded-full bg-gradient-to-r from-pink-500 to-orange-500 text-white px-4 py-2 w-full hover:shadow-xl transition-all hover:-translate-y-1 duration-300 hover:shadow-orange-500"
-        >
-          Follow me
-        </button>
+        <div class="fade-in w-full">
+          <button
+            class="rounded-full bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 py-2 w-full hover:shadow-xl transition-all hover:-translate-y-1 duration-300 hover:shadow-blue-500"
+          >
+            Send message
+          </button>
+        </div>
+        <div class="fade-in w-full">
+          <button
+            class="rounded-full bg-gradient-to-r from-pink-500 to-orange-500 text-white px-4 py-2 w-full hover:shadow-xl transition-all hover:-translate-y-1 duration-300 hover:shadow-orange-500"
+          >
+            Follow me
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
-
-<script setup></script>
 
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Nunito:wght@600;700&display=swap");
